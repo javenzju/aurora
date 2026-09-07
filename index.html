@@ -1036,7 +1036,7 @@
             <!-- 新增视频：把 mp4 传到仓库根目录（命名 video1.mp4 / video2.mp4 ...），复制下面这个 .video-card 块，改 src 和标题即可 -->
             <div class="video-card fade-up">
                 <div class="video-frame">
-                    <video controls controlsList="nodownload" preload="metadata" oncontextmenu="return false;">
+                    <video controls controlsList="nodownload" disablepictureinpicture preload="metadata" oncontextmenu="return false;">
                         <source src="video1.mp4" type="video/mp4">
                         您的浏览器不支持视频播放。
                     </video>
@@ -1048,7 +1048,7 @@
             </div>
             <div class="video-card fade-up">
                 <div class="video-frame">
-                    <video controls controlsList="nodownload" preload="metadata" oncontextmenu="return false;">
+                    <video controls controlsList="nodownload" disablepictureinpicture preload="metadata" oncontextmenu="return false;">
                         <source src="video2.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -1059,7 +1059,7 @@
             </div>
             <div class="video-card fade-up">
                 <div class="video-frame">
-                    <video controls controlsList="nodownload" preload="metadata" oncontextmenu="return false;">
+                    <video controls controlsList="nodownload" disablepictureinpicture preload="metadata" oncontextmenu="return false;">
                         <source src="video3.mp4" type="video/mp4">
                     </video>
                 </div>
@@ -1081,7 +1081,7 @@
         <div class="ppt-grid">
             <!-- 新增 PPT：把 pptx 传到仓库根目录（命名 ppt1.pptx / ppt2.pptx ...），复制下面这个 .ppt-card 块，把 iframe 里的 ppt1.pptx 改成你的文件名 -->
             <div class="ppt-card fade-up">
-                <div class="ppt-frame">
+                <div class="ppt-frame" oncontextmenu="return false;">
                     <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt1.pptx" allowfullscreen></iframe>
                 </div>
                 <div class="ppt-body">
@@ -1090,7 +1090,7 @@
                 </div>
             </div>
             <div class="ppt-card fade-up">
-                <div class="ppt-frame">
+                <div class="ppt-frame" oncontextmenu="return false;">
                     <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt2.pptx" allowfullscreen></iframe>
                 </div>
                 <div class="ppt-body">
@@ -1099,7 +1099,7 @@
                 </div>
             </div>
             <div class="ppt-card fade-up">
-                <div class="ppt-frame">
+                <div class="ppt-frame" oncontextmenu="return false;">
                     <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt3.pptx" allowfullscreen></iframe>
                 </div>
                 <div class="ppt-body">
@@ -1183,6 +1183,25 @@
             } else {
                 navbar.style.padding = '1.2rem 5%';
             }
+        });
+    </script>
+
+    <script>
+        // 防下载加固：阻止视频 / PPT 被右键保存、拖拽、Ctrl+S
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('video, iframe').forEach(function (el) {
+                el.addEventListener('contextmenu', function (e) { e.preventDefault(); return false; });
+                el.addEventListener('dragstart', function (e) { e.preventDefault(); return false; });
+            });
+            document.addEventListener('keydown', function (e) {
+                if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+                    var t = e.target;
+                    if (t && (t.tagName === 'VIDEO' || t.closest('iframe') ||
+                             t.closest('.video-frame') || t.closest('.ppt-frame'))) {
+                        e.preventDefault();
+                    }
+                }
+            });
         });
     </script>
 </body>
