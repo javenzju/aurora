@@ -574,6 +574,112 @@
             transition: transform 0.4s ease;
         }
 
+        /* ========== 科普视频 ========== */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-frame video,
+        .video-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .video-body {
+            padding: 1.5rem;
+        }
+
+        .video-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ========== PPT 专栏 ========== */
+        .ppt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .ppt-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .ppt-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .ppt-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .ppt-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .ppt-body {
+            padding: 1.5rem;
+        }
+
+        .ppt-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ppt-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
         /* ========== 联系 ========== */
         .contact-area {
             text-align: center;
@@ -719,6 +825,8 @@
             <li><a href="#skills">专长</a></li>
             <li><a href="#projects">经历</a></li>
             <li><a href="#gallery">相册</a></li>
+            <li><a href="#videos">科普</a></li>
+            <li><a href="#ppt">PPT</a></li>
             <li><a href="#contact">联系</a></li>
         </ul>
         <button class="menu-toggle" id="menuToggle" aria-label="菜单">
@@ -913,6 +1021,91 @@
             </div>
             <div class="gallery-item fade-up">
                 <img src="5.jpg" alt="照片5">
+            </div>
+        </div>
+    </section>
+
+    <!-- 科普视频 -->
+    <section id="videos">
+        <div class="section-header fade-up">
+            <h2>科普视频</h2>
+            <p>医学科普 · 健康知识</p>
+            <div class="section-line"></div>
+        </div>
+        <div class="video-grid">
+            <!-- 新增视频：把 mp4 传到仓库根目录（命名 video1.mp4 / video2.mp4 ...），复制下面这个 .video-card 块，改 src 和标题即可 -->
+            <div class="video-card fade-up">
+                <div class="video-frame">
+                    <video controls controlsList="nodownload" preload="metadata" oncontextmenu="return false;">
+                        <source src="video1.mp4" type="video/mp4">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                <div class="video-body">
+                    <h3>科普视频 1</h3>
+                    <p>在这里写视频简介。</p>
+                </div>
+            </div>
+            <div class="video-card fade-up">
+                <div class="video-frame">
+                    <video controls controlsList="nodownload" preload="metadata" oncontextmenu="return false;">
+                        <source src="video2.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-body">
+                    <h3>科普视频 2</h3>
+                    <p>在这里写视频简介。</p>
+                </div>
+            </div>
+            <div class="video-card fade-up">
+                <div class="video-frame">
+                    <video controls controlsList="nodownload" preload="metadata" oncontextmenu="return false;">
+                        <source src="video3.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="video-body">
+                    <h3>科普视频 3</h3>
+                    <p>在这里写视频简介。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PPT 专栏 -->
+    <section id="ppt">
+        <div class="section-header fade-up">
+            <h2>PPT 专栏</h2>
+            <p>学术分享 · 课件展示</p>
+            <div class="section-line"></div>
+        </div>
+        <div class="ppt-grid">
+            <!-- 新增 PPT：把 pptx 传到仓库根目录（命名 ppt1.pptx / ppt2.pptx ...），复制下面这个 .ppt-card 块，把 iframe 里的 ppt1.pptx 改成你的文件名 -->
+            <div class="ppt-card fade-up">
+                <div class="ppt-frame">
+                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt1.pptx" allowfullscreen></iframe>
+                </div>
+                <div class="ppt-body">
+                    <h3>PPT 作品 1</h3>
+                    <p>在这里写 PPT 简介。</p>
+                </div>
+            </div>
+            <div class="ppt-card fade-up">
+                <div class="ppt-frame">
+                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt2.pptx" allowfullscreen></iframe>
+                </div>
+                <div class="ppt-body">
+                    <h3>PPT 作品 2</h3>
+                    <p>在这里写 PPT 简介。</p>
+                </div>
+            </div>
+            <div class="ppt-card fade-up">
+                <div class="ppt-frame">
+                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt3.pptx" allowfullscreen></iframe>
+                </div>
+                <div class="ppt-body">
+                    <h3>PPT 作品 3</h3>
+                    <p>在这里写 PPT 简介。</p>
+                </div>
             </div>
         </div>
     </section>
