@@ -680,6 +680,67 @@
             font-size: 0.95rem;
         }
 
+        /* ========== PPT 轮播 ========== */
+        .ppt-viewer {
+            position: relative;
+            background: #0c0e12;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .ppt-stage {
+            position: relative;
+            width: 100%;
+            background: #0c0e12;
+        }
+        .ppt-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            display: none;
+        }
+        .ppt-slide.active {
+            display: block;
+            opacity: 1;
+        }
+        .ppt-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 206, 201, 0.85);
+            color: #07131a;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .ppt-nav:hover { background: #fff; }
+        .ppt-nav.prev { left: 10px; }
+        .ppt-nav.next { right: 10px; }
+        .ppt-count {
+            position: absolute;
+            bottom: 10px;
+            right: 14px;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            z-index: 2;
+        }
+
         /* ========== 联系 ========== */
         .contact-area {
             text-align: center;
@@ -1079,19 +1140,147 @@
             <div class="section-line"></div>
         </div>
         <div class="ppt-grid">
-            <!-- 新增 PPT：把 pptx 传到仓库根目录（命名 ppt1.pptx / ppt2.pptx ...），复制下面这个 .ppt-card 块，把 iframe 里的 ppt1.pptx 改成你的文件名 -->
+            <!-- 新增 PPT：把每页导出为图片放进仓库 slides/pptN/ 后，复制下面 .ppt-card 块并改图片路径与标题即可 -->
             <div class="ppt-card fade-up">
-                <div class="ppt-frame" oncontextmenu="return false;">
-                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt1.pptx" allowfullscreen></iframe>
+                <div class="ppt-viewer">
+                    <button class="ppt-nav prev" aria-label="上一张">&#8249;</button>
+                    <div class="ppt-stage" style="aspect-ratio: 1280 / 720;">
+                    <img class="ppt-slide active" src="slides/ppt1/ppt1_1.jpg" alt="血尿便常规解读 幻灯片1" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_2.jpg" alt="血尿便常规解读 幻灯片2" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_3.jpg" alt="血尿便常规解读 幻灯片3" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_4.jpg" alt="血尿便常规解读 幻灯片4" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_5.jpg" alt="血尿便常规解读 幻灯片5" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_6.jpg" alt="血尿便常规解读 幻灯片6" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_7.jpg" alt="血尿便常规解读 幻灯片7" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_8.jpg" alt="血尿便常规解读 幻灯片8" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_9.jpg" alt="血尿便常规解读 幻灯片9" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_10.jpg" alt="血尿便常规解读 幻灯片10" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_11.jpg" alt="血尿便常规解读 幻灯片11" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_12.jpg" alt="血尿便常规解读 幻灯片12" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_13.jpg" alt="血尿便常规解读 幻灯片13" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_14.jpg" alt="血尿便常规解读 幻灯片14" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_15.jpg" alt="血尿便常规解读 幻灯片15" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_16.jpg" alt="血尿便常规解读 幻灯片16" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_17.jpg" alt="血尿便常规解读 幻灯片17" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_18.jpg" alt="血尿便常规解读 幻灯片18" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_19.jpg" alt="血尿便常规解读 幻灯片19" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_20.jpg" alt="血尿便常规解读 幻灯片20" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_21.jpg" alt="血尿便常规解读 幻灯片21" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_22.jpg" alt="血尿便常规解读 幻灯片22" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_23.jpg" alt="血尿便常规解读 幻灯片23" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_24.jpg" alt="血尿便常规解读 幻灯片24" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_25.jpg" alt="血尿便常规解读 幻灯片25" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_26.jpg" alt="血尿便常规解读 幻灯片26" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_27.jpg" alt="血尿便常规解读 幻灯片27" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_28.jpg" alt="血尿便常规解读 幻灯片28" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_29.jpg" alt="血尿便常规解读 幻灯片29" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_30.jpg" alt="血尿便常规解读 幻灯片30" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_31.jpg" alt="血尿便常规解读 幻灯片31" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_32.jpg" alt="血尿便常规解读 幻灯片32" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_33.jpg" alt="血尿便常规解读 幻灯片33" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_34.jpg" alt="血尿便常规解读 幻灯片34" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_35.jpg" alt="血尿便常规解读 幻灯片35" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_36.jpg" alt="血尿便常规解读 幻灯片36" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_37.jpg" alt="血尿便常规解读 幻灯片37" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_38.jpg" alt="血尿便常规解读 幻灯片38" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_39.jpg" alt="血尿便常规解读 幻灯片39" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_40.jpg" alt="血尿便常规解读 幻灯片40" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_41.jpg" alt="血尿便常规解读 幻灯片41" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_42.jpg" alt="血尿便常规解读 幻灯片42" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_43.jpg" alt="血尿便常规解读 幻灯片43" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_44.jpg" alt="血尿便常规解读 幻灯片44" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_45.jpg" alt="血尿便常规解读 幻灯片45" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_46.jpg" alt="血尿便常规解读 幻灯片46" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_47.jpg" alt="血尿便常规解读 幻灯片47" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_48.jpg" alt="血尿便常规解读 幻灯片48" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_49.jpg" alt="血尿便常规解读 幻灯片49" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_50.jpg" alt="血尿便常规解读 幻灯片50" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_51.jpg" alt="血尿便常规解读 幻灯片51" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_52.jpg" alt="血尿便常规解读 幻灯片52" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_53.jpg" alt="血尿便常规解读 幻灯片53" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_54.jpg" alt="血尿便常规解读 幻灯片54" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_55.jpg" alt="血尿便常规解读 幻灯片55" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_56.jpg" alt="血尿便常规解读 幻灯片56" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_57.jpg" alt="血尿便常规解读 幻灯片57" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_58.jpg" alt="血尿便常规解读 幻灯片58" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_59.jpg" alt="血尿便常规解读 幻灯片59" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_60.jpg" alt="血尿便常规解读 幻灯片60" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_61.jpg" alt="血尿便常规解读 幻灯片61" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_62.jpg" alt="血尿便常规解读 幻灯片62" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_63.jpg" alt="血尿便常规解读 幻灯片63" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_64.jpg" alt="血尿便常规解读 幻灯片64" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_65.jpg" alt="血尿便常规解读 幻灯片65" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_66.jpg" alt="血尿便常规解读 幻灯片66" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_67.jpg" alt="血尿便常规解读 幻灯片67" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_68.jpg" alt="血尿便常规解读 幻灯片68" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_69.jpg" alt="血尿便常规解读 幻灯片69" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_70.jpg" alt="血尿便常规解读 幻灯片70" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_71.jpg" alt="血尿便常规解读 幻灯片71" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_72.jpg" alt="血尿便常规解读 幻灯片72" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_73.jpg" alt="血尿便常规解读 幻灯片73" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_74.jpg" alt="血尿便常规解读 幻灯片74" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_75.jpg" alt="血尿便常规解读 幻灯片75" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_76.jpg" alt="血尿便常规解读 幻灯片76" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt1/ppt1_77.jpg" alt="血尿便常规解读 幻灯片77" loading="lazy">
+                    </div>
+                    <button class="ppt-nav next" aria-label="下一张">&#8250;</button>
+                    <div class="ppt-count"><span class="cur">1</span> / <span class="total">77</span></div>
                 </div>
                 <div class="ppt-body">
-                    <h3>PPT 作品 1</h3>
+                    <h3>血尿便常规解读</h3>
                     <p>在这里写 PPT 简介。</p>
                 </div>
             </div>
             <div class="ppt-card fade-up">
-                <div class="ppt-frame" oncontextmenu="return false;">
-                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt2.pptx" allowfullscreen></iframe>
+                <div class="ppt-viewer">
+                    <button class="ppt-nav prev" aria-label="上一张">&#8249;</button>
+                    <div class="ppt-stage" style="aspect-ratio: 1280 / 720;">
+                    <img class="ppt-slide active" src="slides/ppt2/ppt2_1.jpg" alt="PPT 作品 2 幻灯片1" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_2.jpg" alt="PPT 作品 2 幻灯片2" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_3.jpg" alt="PPT 作品 2 幻灯片3" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_4.jpg" alt="PPT 作品 2 幻灯片4" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_5.jpg" alt="PPT 作品 2 幻灯片5" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_6.jpg" alt="PPT 作品 2 幻灯片6" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_7.jpg" alt="PPT 作品 2 幻灯片7" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_8.jpg" alt="PPT 作品 2 幻灯片8" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_9.jpg" alt="PPT 作品 2 幻灯片9" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_10.jpg" alt="PPT 作品 2 幻灯片10" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_11.jpg" alt="PPT 作品 2 幻灯片11" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_12.jpg" alt="PPT 作品 2 幻灯片12" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_13.jpg" alt="PPT 作品 2 幻灯片13" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_14.jpg" alt="PPT 作品 2 幻灯片14" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_15.jpg" alt="PPT 作品 2 幻灯片15" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_16.jpg" alt="PPT 作品 2 幻灯片16" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_17.jpg" alt="PPT 作品 2 幻灯片17" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_18.jpg" alt="PPT 作品 2 幻灯片18" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_19.jpg" alt="PPT 作品 2 幻灯片19" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_20.jpg" alt="PPT 作品 2 幻灯片20" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_21.jpg" alt="PPT 作品 2 幻灯片21" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_22.jpg" alt="PPT 作品 2 幻灯片22" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_23.jpg" alt="PPT 作品 2 幻灯片23" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_24.jpg" alt="PPT 作品 2 幻灯片24" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_25.jpg" alt="PPT 作品 2 幻灯片25" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_26.jpg" alt="PPT 作品 2 幻灯片26" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_27.jpg" alt="PPT 作品 2 幻灯片27" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_28.jpg" alt="PPT 作品 2 幻灯片28" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_29.jpg" alt="PPT 作品 2 幻灯片29" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_30.jpg" alt="PPT 作品 2 幻灯片30" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_31.jpg" alt="PPT 作品 2 幻灯片31" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_32.jpg" alt="PPT 作品 2 幻灯片32" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_33.jpg" alt="PPT 作品 2 幻灯片33" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_34.jpg" alt="PPT 作品 2 幻灯片34" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_35.jpg" alt="PPT 作品 2 幻灯片35" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_36.jpg" alt="PPT 作品 2 幻灯片36" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_37.jpg" alt="PPT 作品 2 幻灯片37" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_38.jpg" alt="PPT 作品 2 幻灯片38" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_39.jpg" alt="PPT 作品 2 幻灯片39" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_40.jpg" alt="PPT 作品 2 幻灯片40" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_41.jpg" alt="PPT 作品 2 幻灯片41" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_42.jpg" alt="PPT 作品 2 幻灯片42" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt2/ppt2_43.jpg" alt="PPT 作品 2 幻灯片43" loading="lazy">
+                    </div>
+                    <button class="ppt-nav next" aria-label="下一张">&#8250;</button>
+                    <div class="ppt-count"><span class="cur">1</span> / <span class="total">43</span></div>
                 </div>
                 <div class="ppt-body">
                     <h3>PPT 作品 2</h3>
@@ -1099,8 +1288,40 @@
                 </div>
             </div>
             <div class="ppt-card fade-up">
-                <div class="ppt-frame" oncontextmenu="return false;">
-                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https%3A%2F%2Fjavenzju.github.io%2Faurora%2Fppt3.pptx" allowfullscreen></iframe>
+                <div class="ppt-viewer">
+                    <button class="ppt-nav prev" aria-label="上一张">&#8249;</button>
+                    <div class="ppt-stage" style="aspect-ratio: 1280 / 720;">
+                    <img class="ppt-slide active" src="slides/ppt3/ppt3_1.jpg" alt="PPT 作品 3 幻灯片1" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_2.jpg" alt="PPT 作品 3 幻灯片2" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_3.jpg" alt="PPT 作品 3 幻灯片3" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_4.jpg" alt="PPT 作品 3 幻灯片4" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_5.jpg" alt="PPT 作品 3 幻灯片5" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_6.jpg" alt="PPT 作品 3 幻灯片6" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_7.jpg" alt="PPT 作品 3 幻灯片7" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_8.jpg" alt="PPT 作品 3 幻灯片8" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_9.jpg" alt="PPT 作品 3 幻灯片9" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_10.jpg" alt="PPT 作品 3 幻灯片10" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_11.jpg" alt="PPT 作品 3 幻灯片11" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_12.jpg" alt="PPT 作品 3 幻灯片12" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_13.jpg" alt="PPT 作品 3 幻灯片13" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_14.jpg" alt="PPT 作品 3 幻灯片14" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_15.jpg" alt="PPT 作品 3 幻灯片15" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_16.jpg" alt="PPT 作品 3 幻灯片16" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_17.jpg" alt="PPT 作品 3 幻灯片17" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_18.jpg" alt="PPT 作品 3 幻灯片18" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_19.jpg" alt="PPT 作品 3 幻灯片19" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_20.jpg" alt="PPT 作品 3 幻灯片20" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_21.jpg" alt="PPT 作品 3 幻灯片21" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_22.jpg" alt="PPT 作品 3 幻灯片22" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_23.jpg" alt="PPT 作品 3 幻灯片23" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_24.jpg" alt="PPT 作品 3 幻灯片24" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_25.jpg" alt="PPT 作品 3 幻灯片25" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_26.jpg" alt="PPT 作品 3 幻灯片26" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_27.jpg" alt="PPT 作品 3 幻灯片27" loading="lazy">
+                    <img class="ppt-slide" src="slides/ppt3/ppt3_28.jpg" alt="PPT 作品 3 幻灯片28" loading="lazy">
+                    </div>
+                    <button class="ppt-nav next" aria-label="下一张">&#8250;</button>
+                    <div class="ppt-count"><span class="cur">1</span> / <span class="total">28</span></div>
                 </div>
                 <div class="ppt-body">
                     <h3>PPT 作品 3</h3>
@@ -1204,5 +1425,25 @@
             });
         });
     </script>
+    <script>
+        // PPT 图片轮播：上一张 / 下一张 / 循环
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.ppt-viewer').forEach(function (v) {
+                var slides = v.querySelectorAll('.ppt-slide');
+                var cur = v.querySelector('.ppt-count .cur');
+                var idx = 0;
+                function show(n) {
+                    idx = (n + slides.length) % slides.length;
+                    slides.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
+                    if (cur) cur.textContent = idx + 1;
+                }
+                var prev = v.querySelector('.ppt-nav.prev');
+                var next = v.querySelector('.ppt-nav.next');
+                if (prev) prev.addEventListener('click', function () { show(idx - 1); });
+                if (next) next.addEventListener('click', function () { show(idx + 1); });
+            });
+        });
+    </script>
+
 </body>
 </html>
