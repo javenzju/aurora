@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天使 · 个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --accent: #00cec9;
+            --accent-2: #fd79a8;
+            --bg-dark: #0f0e17;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text: #fffffe;
+            --text-muted: #a7a9be;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ========== 动态背景 ========== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #0f0e17, #1a1a2e, #16213e, #0f0e17);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: 10%;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--accent);
+            bottom: 10%;
+            right: -80px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-2);
+            top: 50%;
+            left: 50%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* ========== 导航栏 ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(15, 14, 23, 0.7);
+            border-bottom: 1px solid var(--border);
+            transition: padding 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        /* ========== Hero 区域 ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 5% 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .hero-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            border: 4px solid rgba(255,255,255,0.15);
+            object-fit: cover;
+            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.4);
+            animation: photoFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes photoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge .pulse {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 30%, var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero .subtitle span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .hero-text {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(108, 92, 231, 0.6);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ========== 通用 Section ========== */
+        section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .section-line {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* ========== 关于我 ========== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-avatar {
+            display: flex;
+            justify-content: center;
+        }
+
+        .avatar-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(255,255,255,0.15);
+            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.3);
+            position: relative;
+        }
+
+        .avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar-circle::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--accent-2));
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(15px);
+        }
+
+        .about-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ========== 技能 ========== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem 1.2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 206, 201, 0.15);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .skill-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .skill-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ========== 项目 ========== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-light);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-banner {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-banner img {
+            transform: scale(1.1);
+        }
+
+        .project-body {
+            padding: 1.5rem;
+        }
+
+        .project-body h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(108, 92, 231, 0.15);
+            border: 1px solid rgba(108, 92, 231, 0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--primary-light);
+        }
+
+        /* ========== 相册 ========== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 206, 201, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ========== 联系 ========== */
+        .contact-area {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-area p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1.5rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 120px;
+        }
+
+        .social-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            background: rgba(0, 206, 201, 0.1);
+        }
+
+        .social-card svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .social-card span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ========== 页脚 ========== */
+        footer {
+            text-align: center;
+            padding: 2rem 5%;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ========== 滚动动画 ========== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== 响应式 ========== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(15, 14, 23, 0.95);
+                padding: 1.5rem;
+                gap: 1rem;
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-stats {
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 280px;
+                justify-content: center;
+            }
+
+            .hero-photo {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="bg-animation"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- 导航栏 -->
+    <nav>
+        <div class="logo">&lt;天使 /&gt;</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#skills">专长</a></li>
+            <li><a href="#projects">经历</a></li>
+            <li><a href="#gallery">相册</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle" aria-label="菜单">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <img src="5.jpg" alt="天使" class="hero-photo">
+            <div class="hero-badge">
+                <div class="pulse"></div>
+                欢迎来到我的个人主页
+            </div>
+            <h1>你好，我是<br>天使</h1>
+            <p class="subtitle">一名 <span>医生</span> &amp; <span>生命守护者</span></p>
+            <p class="hero-text">
+                致力于用专业与温暖守护每一位患者的健康。
+                相信医学的温度，不仅在于精湛的技术，更在于对生命的敬畏与关怀。
+            </p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary">了解更多</a>
+                <a href="#contact" class="btn btn-secondary">联系我</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>向下滚动</span>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about">
+        <div class="section-header fade-up">
+            <h2>关于我</h2>
+            <p>了解一下我是谁</p>
+            <div class="section-line"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-avatar fade-up">
+                <div class="avatar-circle">
+                    <img src="1.jpg" alt="天使">
+                </div>
+            </div>
+            <div class="about-text fade-up">
+                <h3>很高兴认识你！</h3>
+                <p>
+                    我是一名医生，热爱医学事业，始终以患者为中心。
+                    在临床工作中，我追求精准的诊断与温暖的人文关怀并重，
+                    希望能为每一位患者带来最好的就医体验。
+                </p>
+                <p>
+                    从医以来，我始终坚信：医学不仅是科学，更是一门关于"人"的艺术。
+                    工作之余，我喜欢阅读、旅行和摄影，用心感受生活的美好。
+                </p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="stat-num">8+</div>
+                        <div class="stat-label">年临床经验</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">5000+</div>
+                        <div class="stat-label">接诊患者</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-num">100%</div>
+                        <div class="stat-label">医者仁心</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专长 -->
+    <section id="skills">
+        <div class="section-header fade-up">
+            <h2>专业专长</h2>
+            <p>我的医学技能与领域</p>
+            <div class="section-line"></div>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card fade-up">
+                <div class="skill-icon">诊</div>
+                <h4>临床诊断</h4>
+                <p>精准问诊与鉴别</p>
+            </div>
+            <div class="skill-card fade-up">
+                <div class="skill-icon">治</div>
+                <h4>治疗方案</h4>
+                <p>个性化治疗规划</p>
+            </div>
+            <div class="skill-card fade-up">
+                <div class="skill-icon">急</div>
+                <h4>急诊急救</h4>
+                <p>突发状况处置</p>
+            </div>
+            <div class="skill-card fade-up">
+                <div class="skill-icon">心</div>
+                <h4>医患沟通</h4>
+                <p>温暖人文关怀</p>
+            </div>
+            <div class="skill-card fade-up">
+                <div class="skill-icon">研</div>
+                <h4>医学研究</h4>
+                <p>临床科研探索</p>
+            </div>
+            <div class="skill-card fade-up">
+                <div class="skill-icon">教</div>
+                <h4>带教培训</h4>
+                <p>培养年轻医师</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 经历 -->
+    <section id="projects">
+        <div class="section-header fade-up">
+            <h2>执业经历</h2>
+            <p>我的职业历程与成就</p>
+            <div class="section-line"></div>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card fade-up">
+                <div class="project-banner">
+                    <img src="2.jpg" alt="临床工作">
+                </div>
+                <div class="project-body">
+                    <h3>临床一线工作</h3>
+                    <p>长期扎根临床一线，累计接诊数千例患者，在常见病、多发病的诊治方面积累了丰富的实战经验。</p>
+                    <div class="project-tags">
+                        <span class="tag">门诊</span>
+                        <span class="tag">病房</span>
+                        <span class="tag">查房</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-up">
+                <div class="project-banner">
+                    <img src="3.jpg" alt="学术交流">
+                </div>
+                <div class="project-body">
+                    <h3>学术研究与交流</h3>
+                    <p>参与多项临床课题研究，在核心期刊发表论文，积极参加国内外学术会议，与同行分享经验、交流前沿。</p>
+                    <div class="project-tags">
+                        <span class="tag">课题</span>
+                        <span class="tag">论文</span>
+                        <span class="tag">会议</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-up">
+                <div class="project-banner">
+                    <img src="4.jpg" alt="公益义诊">
+                </div>
+                <div class="project-body">
+                    <h3>公益义诊服务</h3>
+                    <p>多次参与社区义诊和健康科普活动，将优质医疗资源带到基层，为更多群众提供免费的医疗咨询。</p>
+                    <div class="project-tags">
+                        <span class="tag">义诊</span>
+                        <span class="tag">科普</span>
+                        <span class="tag">志愿</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 相册 -->
+    <section id="gallery">
+        <div class="section-header fade-up">
+            <h2>生活相册</h2>
+            <p>工作之外的我</p>
+            <div class="section-line"></div>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item fade-up">
+                <img src="1.jpg" alt="照片1">
+            </div>
+            <div class="gallery-item fade-up">
+                <img src="2.jpg" alt="照片2">
+            </div>
+            <div class="gallery-item fade-up">
+                <img src="3.jpg" alt="照片3">
+            </div>
+            <div class="gallery-item fade-up">
+                <img src="4.jpg" alt="照片4">
+            </div>
+            <div class="gallery-item fade-up">
+                <img src="5.jpg" alt="照片5">
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系 -->
+    <section id="contact">
+        <div class="section-header fade-up">
+            <h2>联系我</h2>
+            <p>随时欢迎交流</p>
+            <div class="section-line"></div>
+        </div>
+        <div class="contact-area fade-up">
+            <p>
+                如果你有健康咨询、学术交流或者只是想打个招呼，
+                都可以通过以下方式找到我。
+            </p>
+            <div class="social-links">
+                <a href="https://github.com/" target="_blank" class="social-card">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.605-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+                <a href="mailto:your@email.com" class="social-card">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span>邮箱</span>
+                </a>
+                <a href="#" class="social-card">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.04c-5.5 0-10 4.49-10 10.02 0 5.01 3.69 9.16 8.48 9.9.62.12.84-.27.84-.6v-2.1c-3.45.75-4.18-1.66-4.18-1.66-.56-1.44-1.37-1.82-1.37-1.82-1.12-.77.08-.75.08-.75 1.24.09 1.9 1.28 1.9 1.28 1.1 1.89 2.89 1.34 3.6 1.03.11-.8.43-1.34.78-1.65-2.78-.31-5.7-1.39-5.7-6.19 0-1.37.49-2.49 1.29-3.37-.13-.32-.56-1.59.12-3.31 0 0 1.05-.34 3.45 1.29 1-.28 2.07-.42 3.13-.42 1.06 0 2.13.14 3.13.42 2.4-1.63 3.45-1.29 3.45-1.29.68 1.72.25 2.99.12 3.31.8.88 1.29 2 1.29 3.37 0 4.81-2.93 5.87-5.72 6.18.45.39.85 1.16.85 2.34v3.47c0 .33.22.72.85.6 4.79-.74 8.48-4.89 8.48-9.9 0-5.53-4.5-10.02-10-10.02z"/>
+                    </svg>
+                    <span>博客</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>2026 天使 &middot; 使用 <a href="#">GitHub</a> + <a href="#">Cloudflare Pages</a> 搭建</p>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        const navbar = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.padding = '0.8rem 5%';
+            } else {
+                navbar.style.padding = '1.2rem 5%';
+            }
+        });
+    </script>
+</body>
+</html>
